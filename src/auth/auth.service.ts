@@ -56,7 +56,7 @@ export class AuthService {
   }
 
   async generateUserTokens(userId){
-    const accessToken = this.jwtService.sign({userId}, {expiresIn: '15m'})
+    const accessToken = this.jwtService.sign({userId}, {expiresIn: '3'})
   
     return{
       accessToken
