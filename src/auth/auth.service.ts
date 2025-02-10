@@ -32,7 +32,6 @@ export class AuthService {
       email,
       username,
       password: hashedPassword,
-      created_at: new Date()
     })
 
     this.userRepository.save(newUser)

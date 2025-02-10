@@ -7,6 +7,10 @@ import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Role } from './typeorm/entities/Role';
+import { RoleModule } from './role/role.module';
+
+import * as entities from './typeorm/entities';
 
 @Module({
   imports: [ 
@@ -21,9 +25,9 @@ import { AppService } from './app.service';
       username: 'root',
       password: '123456',
       database: 'learnnestjs',
-      entities: [User],
+      entities: Object.values(entities),
       synchronize: true
-    }), UserModule, AuthModule
+    }), UserModule, AuthModule, RoleModule
   ],
   controllers: [AppController],
   providers: [AppService],
