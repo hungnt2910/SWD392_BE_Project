@@ -11,16 +11,6 @@ export class RoleService implements OnModuleInit {
   ) {}
 
   async onModuleInit() {
-    const defaultRoles = [
-      { roleName: 'Admin' },
-      { roleName: 'User' },
-    ];
-
-    for (const role of defaultRoles) {
-      const exists = await this.roleRepository.findOne({ where: { roleName: role.roleName } });
-      if (!exists) {
-        await this.roleRepository.save(role);
-      }
-    }
+    
   }
 }

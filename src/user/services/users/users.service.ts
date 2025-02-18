@@ -9,8 +9,8 @@ export class UsersService {
 
     constructor(@InjectRepository(User) private userRepository: Repository<User>){}
 
-    findUser(){
-
+    findUser(userId: number){
+        return this.userRepository.findOne({where : {id: userId}})
     }
 
     createUser(userDetails: CreateUserParams){

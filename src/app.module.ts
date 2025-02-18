@@ -9,6 +9,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Role } from './typeorm/entities/Role';
 import { RoleModule } from './role/role.module';
+import { SkincareProductModule } from './skincare-product/skincare-product.module';
+import { SeederModule } from './seeder/seeder.module';
 
 import * as entities from './typeorm/entities';
 
@@ -27,7 +29,7 @@ import * as entities from './typeorm/entities';
       database: 'learnnestjs',
       entities: Object.values(entities),
       synchronize: true
-    }), UserModule, AuthModule, RoleModule
+    }), UserModule, AuthModule, RoleModule, SkincareProductModule, SeederModule, SkincareProductModule
   ],
   controllers: [AppController],
   providers: [AppService],
