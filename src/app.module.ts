@@ -11,6 +11,7 @@ import { Role } from './typeorm/entities/Role';
 import { RoleModule } from './role/role.module';
 import { SkincareProductModule } from './skincare-product/skincare-product.module';
 import { SeederModule } from './seeder/seeder.module';
+import { QuizModule } from './quiz/quiz.module';
 
 import * as entities from './typeorm/entities';
 
@@ -29,7 +30,7 @@ import * as entities from './typeorm/entities';
       database: 'learnnestjs',
       entities: Object.values(entities),
       synchronize: true
-    }), UserModule, AuthModule, RoleModule, SkincareProductModule, SeederModule, SkincareProductModule
+    }), UserModule, AuthModule, RoleModule, SkincareProductModule, SeederModule, SkincareProductModule, QuizModule
   ],
   controllers: [AppController],
   providers: [AppService],

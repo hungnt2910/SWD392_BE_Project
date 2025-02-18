@@ -15,7 +15,14 @@ export class SkincareProductService {
   }
 
   async getProductById(productId) {
-    return this.SkincareProductRepository.findOne({ where: { productId: productId } })
+    const product = await this.SkincareProductRepository.findOne({
+      where: { productId: productId },
+      relations: ["category"], 
+    })
+
+    console.log(product)
+    const relateProduct = await this.SkincareProductRepository.find({ where: { category: product?.category } })
+    return { ...product, relatedProduct: relateProduct }
   }
 
   async removeProduct(productId) {
