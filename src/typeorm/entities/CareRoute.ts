@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { CareRouteDetail } from "./CareRouteDetail";
 
@@ -8,6 +8,7 @@ export class CareRoute {
     careRouteId: number;
 
     @ManyToOne(() => User, user => user.id)
+    @JoinColumn({ name: 'user_id' })
     customer: User;
 
     @Column()
