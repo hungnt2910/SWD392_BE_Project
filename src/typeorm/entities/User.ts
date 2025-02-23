@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from 'typeorm'
 import { Role } from './Role'
-import { Order } from './Order'
+import { Orders } from './Order'
 import { Reviews } from './Reviews'
 import { Blogs } from './Blogs'
 import { UserVoucher } from './UserVoucher'
@@ -32,8 +32,8 @@ export class User {
   @JoinColumn({ name: 'role_id' })
   role: Role
 
-  @OneToMany(() => Order, (order) => order.customer)
-  orders: Order[]
+  @OneToMany(() => Orders, (order) => order.customer)
+  orders: Orders[]
 
   @OneToMany(() => Reviews, (reviews) => reviews.user)
   reviews: Reviews[]

@@ -12,6 +12,9 @@ import { RoleModule } from './role/role.module';
 import { SkincareProductModule } from './skincare-product/skincare-product.module';
 import { SeederModule } from './seeder/seeder.module';
 import { QuizModule } from './quiz/quiz.module';
+import { OrdersModule } from './orders/orders.module';
+import { AdminModule } from './admin/admin.module';
+import { BrandModule } from './brand/brand.module';
 
 import * as entities from './typeorm/entities';
 
@@ -30,7 +33,7 @@ import * as entities from './typeorm/entities';
       database: 'learnnestjs',
       entities: Object.values(entities),
       synchronize: true
-    }), UserModule, AuthModule, RoleModule, SkincareProductModule, SeederModule, SkincareProductModule, QuizModule
+    }), UserModule, AuthModule, RoleModule, SkincareProductModule, SeederModule, SkincareProductModule, QuizModule, OrdersModule, AdminModule, BrandModule
   ],
   controllers: [AppController],
   providers: [AppService],

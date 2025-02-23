@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
-import { Order } from "./Order";
+import { Orders } from "./Order";
 import { SkincareProduct } from "./SkincareProduct";
 
 @Entity()
@@ -7,9 +7,9 @@ export class OrderDetail {
     @PrimaryGeneratedColumn()
     orderDetailId: number;
 
-    @ManyToOne(() => Order, order => order.orderId)
+    @ManyToOne(() => Orders, order => order.orderId)
     @JoinColumn({ name: 'order_id' })
-    order: Order;
+    order: Orders;
 
     @ManyToOne(() => SkincareProduct, product => product.productId)
     @JoinColumn({ name: 'product_id' })

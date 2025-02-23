@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/typeorm/entities/User';
+import { updateUserProfileDto } from 'src/user/dtos/UpdateUserProfile.dto';
 import { CreateUserParams } from 'src/utils/types';
 import { Repository } from 'typeorm';
 
@@ -9,13 +10,32 @@ export class UsersService {
 
     constructor(@InjectRepository(User) private userRepository: Repository<User>){}
 
-    findUser(userId: number){
-        return this.userRepository.findOne({where : {id: userId}})
+    async findUser(userId: number){
+        const user = await this.userRepository.findOne({where : {id: userId}})
+        if(!user){
+            throw new NotFoundException('User not found')
+        }
+        return user
     }
 
-    createUser(userDetails: CreateUserParams){
-        const newUser = this.userRepository.create({...userDetails})
-        return this.userRepository.save(newUser)
+    async updateUserProfile(userInfo : updateUserProfileDto, userId: number){
+        const user = await this.findUser(userId)
+
+        if ('email' in userInfo) {
+            throw new BadRequestException('Email cannot be updated');
+        }
+
+        if (userInfo.username !== undefined) {
+            user.username = userInfo.username;
+        }
+        if (userInfo.phone !== undefined) {
+            user.phone = userInfo.phone;
+        }
+        if (userInfo.address !== undefined) {
+            user.address = userInfo.address;
+        }
+
+        return this.userRepository.save(user)
     }
 
 }

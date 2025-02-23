@@ -1,13 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { SkincareProduct } from 'src/typeorm/entities'
+import { Brand, SkincareProduct } from 'src/typeorm/entities'
 import { Repository, UpdateResult } from 'typeorm'
 
 @Injectable()
 export class SkincareProductService {
   constructor(
     @InjectRepository(SkincareProduct)
-    private readonly SkincareProductRepository: Repository<SkincareProduct>
+    private readonly SkincareProductRepository: Repository<SkincareProduct>,
+
+    @InjectRepository(Brand)
+    private readonly BrandRepository: Repository<Brand>
   ) {}
 
   async getAllProduct() {
@@ -33,5 +36,17 @@ export class SkincareProductService {
     }
 
     return await this.SkincareProductRepository.findOne({ where: { productId } })
+  }
+
+  async getProductsByBrand(brandName: string) {
+    return await this.SkincareProductRepository
+      .createQueryBuilder('product')
+      .leftJoinAndSelect('product.brand', 'brand') // Join with Brand table
+      .where('brand.brandName = :brandName', { brandName }) // Filter by brand name
+      .getMany();
+  }
+
+  async getAllBrand(){
+    return await this.BrandRepository.find()
   }
 }

@@ -32,6 +32,7 @@ export class AuthService {
       email,
       username,
       password: hashedPassword,
+      role: {roleId: 2}
     })
 
     this.userRepository.save(newUser)

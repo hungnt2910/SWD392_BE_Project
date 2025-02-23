@@ -5,7 +5,7 @@ import { OrderDetail } from "./OrderDetail";
 ;
 
 @Entity()
-export class Order {
+export class Orders {
     @PrimaryGeneratedColumn()
     orderId: number;
 

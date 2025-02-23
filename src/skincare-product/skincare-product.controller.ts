@@ -19,4 +19,9 @@ export class SkincareProductController {
     async removeProduct(@Param() productId: number){
         return this.SkincareProductService.removeProduct(productId)
     }
+
+    @Get('brand/:brandName')
+    getProductByBrandName(@Param('brandName') brandName: string){
+        return this.SkincareProductService.getProductsByBrand(brandName)
+    }
 }
