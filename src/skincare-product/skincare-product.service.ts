@@ -1,29 +1,30 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Brand, SkincareProduct } from 'src/typeorm/entities'
-import { Repository, UpdateResult } from 'typeorm'
+import { Like, Repository, UpdateResult } from 'typeorm'
 
 @Injectable()
 export class SkincareProductService {
   constructor(
     @InjectRepository(SkincareProduct)
     private readonly SkincareProductRepository: Repository<SkincareProduct>,
-
-    @InjectRepository(Brand)
-    private readonly BrandRepository: Repository<Brand>
   ) {}
 
   async getAllProduct() {
     return this.SkincareProductRepository.find()
   }
 
-  async getProductById(productId) {
+  async getProductById(productId : number) {
+    console.log(productId)
     const product = await this.SkincareProductRepository.findOne({
-      where: { productId: productId },
+      where: { productId },
       relations: ["category"], 
     })
 
     console.log(product)
+    if(!product){
+      throw new NotFoundException("Product is not found")
+    }
     const relateProduct = await this.SkincareProductRepository.find({ where: { category: product?.category } })
     return { ...product, relatedProduct: relateProduct }
   }
@@ -46,7 +47,13 @@ export class SkincareProductService {
       .getMany();
   }
 
-  async getAllBrand(){
-    return await this.BrandRepository.find()
+  async searchProductByName(productName : string){
+    console.log(productName)
+    return await this.SkincareProductRepository.find({
+      where: {
+        productName: Like(`%${productName}%`)
+      }
+    })
   }
+
 }
