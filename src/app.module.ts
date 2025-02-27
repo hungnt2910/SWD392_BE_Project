@@ -1,41 +1,56 @@
 /* eslint-disable prettier/prettier */
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './typeorm/entities/User';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
-import { JwtModule } from '@nestjs/jwt';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { Role } from './typeorm/entities/Role';
-import { RoleModule } from './role/role.module';
-import { SkincareProductModule } from './skincare-product/skincare-product.module';
-import { SeederModule } from './seeder/seeder.module';
-import { QuizModule } from './quiz/quiz.module';
-import { OrdersModule } from './orders/orders.module';
-import { AdminModule } from './admin/admin.module';
-import { BrandModule } from './brand/brand.module';
-
-import * as entities from './typeorm/entities';
+import { Module } from '@nestjs/common'
+import { TypeOrmModule } from '@nestjs/typeorm'
+import { ConfigModule, ConfigService } from '@nestjs/config'
+import { UserModule } from './user/user.module'
+import { AuthModule } from './auth/auth.module'
+import { JwtModule } from '@nestjs/jwt'
+import { AppController } from './app.controller'
+import { AppService } from './app.service'
+import { RoleModule } from './role/role.module'
+import { SkincareProductModule } from './skincare-product/skincare-product.module'
+import { SeederModule } from './seeder/seeder.module'
+import { QuizModule } from './quiz/quiz.module'
+import { OrdersModule } from './orders/orders.module'
+import { AdminModule } from './admin/admin.module'
+import { BrandModule } from './brand/brand.module'
+import * as entities from './typeorm/entities'
 
 @Module({
-  imports: [ 
+  imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     JwtModule.register({
       global: true,
       secret: '123'
     }),
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'learnnestjs',
-      entities: Object.values(entities),
-      synchronize: true
-    }), UserModule, AuthModule, RoleModule, SkincareProductModule, SeederModule, SkincareProductModule, QuizModule, OrdersModule, AdminModule, BrandModule
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: (configService: ConfigService) => ({
+        type: 'mysql',
+        host: configService.get<string>('DB_HOST'),
+        port: configService.get<number>('DB_PORT'),
+        username: configService.get<string>('DB_USERNAME'),
+        password: configService.get<string>('DB_PASSWORD'),
+        database: configService.get<string>('DB_NAME'),
+        entities: Object.values(entities),
+        synchronize: true
+      }),
+      inject: [ConfigService]
+    }),
+    UserModule,
+    AuthModule,
+    RoleModule,
+    SkincareProductModule,
+    SeederModule,
+    SkincareProductModule,
+    QuizModule,
+    OrdersModule,
+    AdminModule,
+    BrandModule
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService]
 })
 export class AppModule {}

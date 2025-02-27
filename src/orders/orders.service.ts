@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Orders } from 'src/typeorm/entities'
+import { OrderDetail, Orders, SkincareProduct, SkincareProductDetails, User } from 'src/typeorm/entities'
 import { Repository } from 'typeorm'
+import { OrderItemDto, ReadyToCheckoutDto } from './dto/order-items-dto'
 
 @Injectable()
 export class OrdersService {
@@ -10,9 +11,7 @@ export class OrdersService {
     private readonly orderRepository: Repository<Orders>
   ) {}
 
-  async getAllOrderByUser(userId : number){
-    return await this.orderRepository.find({where: {customer: {id: userId}},
-        relations: ['orderDetails'],  
-    })
+  async getAllOrderByUser(userId: number) {
+    return await this.orderRepository.find({ where: { customer: { id: userId } }, relations: ['orderDetails'] })
   }
 }
