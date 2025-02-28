@@ -14,22 +14,19 @@ export class SeederService implements OnModuleInit {
     @InjectRepository(Category)
     private readonly categoryRepository: Repository<Category>,
     @InjectRepository(Role)
-    private readonly roleRepository: Repository<Role>,
+    private readonly roleRepository: Repository<Role>
   ) {}
 
   async onModuleInit() {
     // console.log('🌱 Seeding Role...')
     // const defaultRoles = [{ roleName: 'Admin' }, { roleName: 'User' }]
-
     // for (const role of defaultRoles) {
     //   const exists = await this.roleRepository.findOne({ where: { roleName: role.roleName } })
     //   if (!exists) {
     //     await this.roleRepository.save(role)
     //   }
     // }
-
     // console.log('🌱 Seeding Categories and Brands...')
-
     // // ✅ Predefined category names
     // const categoryNames = [
     //   'Cleanser',
@@ -43,7 +40,6 @@ export class SeederService implements OnModuleInit {
     //   'Face Mask',
     //   'Night Cream'
     // ]
-
     // // ✅ Predefined brand names
     // const brandNames = [
     //   { name: 'Klairs', country: 'South Korea', logo: 'https://example.com/klairs.png' },
@@ -69,7 +65,6 @@ export class SeederService implements OnModuleInit {
     //   { name: 'Lancôme', country: 'France', logo: 'https://example.com/lancome.png' },
     //   { name: 'Murad', country: 'USA', logo: 'https://example.com/murad.png' }
     // ]
-
     // // Insert categories if not exist
     // for (const name of categoryNames) {
     //   const existingCategory = await this.categoryRepository.findOne({ where: { name: name } })
@@ -79,7 +74,6 @@ export class SeederService implements OnModuleInit {
     //     await this.categoryRepository.save(category)
     //   }
     // }
-
     // // Insert brands if not exist
     // for (const { name, country, logo } of brandNames) {
     //   const existingBrand = await this.brandRepository.findOne({ where: { brandName: name } })
@@ -91,19 +85,14 @@ export class SeederService implements OnModuleInit {
     //     await this.brandRepository.save(brand)
     //   }
     // }
-
     // console.log('✅ Categories and Brands seeded successfully!')
-
     // console.log('🌱 Seeding Skincare Products...')
-
     // const categories = await this.categoryRepository.find()
     // const brandList = await this.brandRepository.find()
-
     // if (categories.length === 0 || brandList.length === 0) {
     //   console.error('⚠️ Please insert some categories and brands first!')
     //   return
     // }
-
     // // ✅ Expanded skincare product list
     // const skincareProducts = [
     //   { name: 'Klairs Supple Preparation Toner', brand: 'Klairs', category: 'Toner', price: 22.99, stock: 50 },
@@ -159,18 +148,13 @@ export class SeederService implements OnModuleInit {
     //   },
     //   { name: 'SK-II Facial Treatment Essence', brand: 'SK-II', category: 'Essence', price: 99.99, stock: 20 }
     // ]
-
     // // ✅ Expanding to 100 products with variations
     // const products: SkincareProduct[] = []
-
     // for (let i = 0; i < 100; i++) {
     //   const data = skincareProducts[i % skincareProducts.length]
-
     //   const category = categories.find((cat) => cat.name === data.category)
     //   const brand = brandList.find((br) => br.brandName === data.brand)
-
     //   if (!category || !brand) continue
-
     //   const product = new SkincareProduct()
     //   product.productName = `${data.name} - Version ${i + 1}`
     //   product.description = `A highly effective ${data.category.toLowerCase()} by ${data.brand}.`
@@ -181,10 +165,8 @@ export class SeederService implements OnModuleInit {
     //   product.isActive = Math.random() > 0.1 // 90% chance to be active
     //   products.push(product)
     // }
-
     // await this.productRepository.save(products)
     // console.log('✅ 100 Skincare Products from Various Brands seeded successfully!')
-
     // const quizData = [
     //   {
     //     title: 'Vào mỗi buổi sáng thức dậy, bạn thấy da mình thế nào ?',
@@ -214,25 +196,20 @@ export class SeederService implements OnModuleInit {
     //     answer: ['Thỉnh thoảng', 'Thường xuyên, đặc biệt vào chu kỳ', 'Không bao giờ', 'Chỉ khi trang điểm']
     //   }
     // ]
-
     // const queryRunner: QueryRunner = this.dataSource.createQueryRunner()
     // await queryRunner.connect()
     // await queryRunner.startTransaction()
-
     // try {
     //   for (const quiz of quizData) {
     //     // Insert quiz and get ID
     //     const newQuiz = await queryRunner.manager.save(Quiz, { title: quiz.title })
-
     //     // Insert choices with correct quiz ID
     //     const quizChoices = quiz.answer.map((answer) => ({
     //       choice: answer,
     //       quiz: newQuiz
     //     }))
-
     //     await queryRunner.manager.save(QuizChoice, quizChoices)
     //   }
-
     //   await queryRunner.commitTransaction()
     //   console.log('✅ Quiz data seeded successfully')
     // } catch (error) {
