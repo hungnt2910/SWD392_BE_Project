@@ -14,6 +14,7 @@ import { QuizModule } from './quiz/quiz.module'
 import { OrdersModule } from './orders/orders.module'
 import { AdminModule } from './admin/admin.module'
 import { BrandModule } from './brand/brand.module'
+import { PaymentModule } from './payment/payment.module'
 import * as entities from './typeorm/entities'
 
 @Module({
@@ -48,7 +49,8 @@ import * as entities from './typeorm/entities'
     QuizModule,
     OrdersModule,
     AdminModule,
-    BrandModule
+    BrandModule,
+    PaymentModule
   ],
   controllers: [AppController],
   providers: [AppService]
