@@ -1,13 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Param, Post } from '@nestjs/common'
 import { PaymentService } from './payment.service'
 
 @Controller('payment')
 export class PaymentController {
   constructor(private paymentService: PaymentService) {}
 
-  @Post('create')
-  createPayment(@Body() orderId: number) {
-    console.log(orderId)
+  @Post('create/:orderId')
+  createPayment(@Param("orderId") orderId: number) {
+    console.log(typeof orderId)
 
     return this.paymentService.createPayment(orderId)
   }

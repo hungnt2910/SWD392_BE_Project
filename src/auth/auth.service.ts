@@ -15,7 +15,8 @@ export class AuthService {
   ) {}
 
   async signup(signupData: SignUpDto){
-    const {email, username, password} = signupData
+    try{
+      const {email, username, password} = signupData
     //Check if email is use 
     const emailInUse = await this.userRepository.find({
       where: {email: signupData.email}
@@ -37,6 +38,9 @@ export class AuthService {
 
     this.userRepository.save(newUser)
     return {message: "Register success"}
+    }catch(err){
+      throw new BadRequestException(err)
+    }
   }
 
   async signin(signinData: SignInDto){
@@ -56,7 +60,7 @@ export class AuthService {
   }
 
   async generateUserTokens(userId){
-    const accessToken = this.jwtService.sign({userId}, {expiresIn: '3'})
+    const accessToken = this.jwtService.sign({userId}, {expiresIn: '1h'})
   
     return{
       accessToken

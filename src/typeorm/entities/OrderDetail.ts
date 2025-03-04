@@ -7,7 +7,7 @@ export class OrderDetail {
   @PrimaryGeneratedColumn()
   orderDetailId: number
 
-  @ManyToOne(() => Orders, (order) => order.orderId)
+  @ManyToOne(() => Orders, (order) => order.orderDetails)
   @JoinColumn({ name: 'order_id' })
   order: Orders
 
