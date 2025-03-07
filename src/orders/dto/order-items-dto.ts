@@ -32,3 +32,21 @@ export class ReadyToCheckoutDto {
   @IsNotEmpty()
   shippingAddress: string
 }
+
+export class ReturnOrderDetailDto {
+  @IsNumber()
+  @IsNotEmpty()
+  user_id: number
+
+  @IsNumber()
+  @IsPositive()
+  total_amount: number
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => OrderItemDto)
+  orderItems: OrderItemDto[]
+
+  @IsNotEmpty()
+  shippingAddress: string
+}

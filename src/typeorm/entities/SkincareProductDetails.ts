@@ -1,21 +1,21 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { SkincareProduct } from "./SkincareProduct";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { SkincareProduct } from './SkincareProduct'
 
 @Entity()
-export class SkincareProductDetails{
-    @PrimaryGeneratedColumn()
-    productDetailsId: number;
+export class SkincareProductDetails {
+  @PrimaryGeneratedColumn()
+  productDetailsId: number
 
-    @ManyToOne(() => SkincareProduct, product => product.productId)
-    @JoinColumn({ name: 'product_id' })
-    product: SkincareProduct;
+  @ManyToOne(() => SkincareProduct, (product) => product.productId)
+  @JoinColumn({ name: 'product_id' })
+  product: SkincareProduct
 
-    @Column()
-    productionDate: string;
+  @Column({ type: 'date' })
+  productionDate: Date
 
-    @Column()
-    expirationDate: string;
+  @Column({ type: 'date' })
+  expirationDate: Date
 
-    @Column()
-    quantity: number;
+  @Column()
+  quantity: number
 }
