@@ -2,7 +2,7 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { InjectRepository } from '@nestjs/typeorm'
 import { OrderDetail, Orders, SkincareProduct, SkincareProductDetails, User } from 'src/typeorm/entities'
 import { Repository } from 'typeorm'
-import { OrderItemDto, ReadyToCheckoutDto } from './dto/order-items-dto'
+import { OrderItemDto, ReadyToCheckoutDto, ReturnOrderDetailDto } from './dto/order-items-dto'
 import { log } from 'console'
 
 @Injectable()
@@ -69,4 +69,6 @@ export class OrdersService {
       }))
     }
   }
+
+  async ReturnOrderDetail(returnOrderDetailDto: ReturnOrderDetailDto) {}
 }

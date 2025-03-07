@@ -12,8 +12,17 @@ export class PaymentController {
     return this.paymentService.createPayment(orderId)
   }
 
-  // @Post('create')
-  // createPayment() {
-  //   return this.paymentService.createPayment()
-  // }
+  @Post('callback')
+  handleCallback(@Body() dataStr: string, reqMac: string) {
+    console.log(dataStr, reqMac)
+
+    return this.paymentService.handleCallback(dataStr, reqMac)
+  }
+
+  @Post('order-status/:orderId')
+  orderStatus(@Param('orderId') orderId: number) {
+    console.log(orderId)
+
+    return this.paymentService.orderStatus(orderId)
+  }
 }
