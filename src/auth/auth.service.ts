@@ -14,55 +14,60 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
-  async signup(signupData: SignUpDto){
-    try{
-      const {email, username, password} = signupData
-    //Check if email is use 
-    const emailInUse = await this.userRepository.find({
-      where: {email: signupData.email}
-    })
+  async signup(signupData: SignUpDto) {
+    try {
+      const { email, username, password } = signupData
+      //Check if email is use
+      const emailInUse = await this.userRepository.find({
+        where: { email: signupData.email }
+      })
 
-    if(emailInUse.length !== 0){
-      throw new BadRequestException("Email already exist")
-    }
+      if (emailInUse.length !== 0) {
+        throw new BadRequestException('Email already exist')
+      }
 
-    //Hash Password
-    const hashedPassword = await bcrypt.hash(signupData.password, 10)
+      //Hash Password
+      const hashedPassword = await bcrypt.hash(signupData.password, 10)
 
-    const newUser = this.userRepository.create({
-      email,
-      username,
-      password: hashedPassword,
-      role: {roleId: 2}
-    })
+      const newUser = this.userRepository.create({
+        email,
+        username,
+        password: hashedPassword,
+        role: { roleId: 2 }
+      })
 
-    this.userRepository.save(newUser)
-    return {message: "Register success"}
-    }catch(err){
+      this.userRepository.save(newUser)
+      return { message: 'Register success' }
+    } catch (err) {
       throw new BadRequestException(err)
     }
   }
 
-  async signin(signinData: SignInDto){
-    const {email, password} = signinData;
-    const user = await this.userRepository.findOne({where : {email: email}})
+  async signin(signinData: SignInDto) {
+    const { email, password } = signinData
 
-    if(!user){
-      throw new UnauthorizedException("Wrong credentials")
+    // Fetch user along with their role
+    const user = await this.userRepository.findOne({
+      where: { email: email },
+      relations: ['role'] // Include role in the query
+    })
+
+    if (!user) {
+      throw new UnauthorizedException('Wrong credentials')
     }
 
     const comparedPassword = await bcrypt.compare(password, user.password)
-    if(!comparedPassword){
-      throw new UnauthorizedException("Wrong credentials")
+    if (!comparedPassword) {
+      throw new UnauthorizedException('Wrong credentials')
     }
 
-    return this.generateUserTokens(user.id)
+    return this.generateUserTokens(user.id, user.role.roleName)
   }
 
-  async generateUserTokens(userId){
-    const accessToken = this.jwtService.sign({userId}, {expiresIn: '1h'})
-  
-    return{
+  async generateUserTokens(userId: number, role: string) {
+    const accessToken = this.jwtService.sign({ userId, role }, { expiresIn: '1h' })
+
+    return {
       accessToken
     }
   }
