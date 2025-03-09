@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { OrderDetail, Orders, SkincareProduct, SkincareProductDetails, User } from 'src/typeorm/entities'
 import { Repository } from 'typeorm'
 import { OrderItemDto, ReadyToCheckoutDto, ReturnOrderDetailDto } from './dto/order-items-dto'
-import { log } from 'console'
 
 @Injectable()
 export class OrdersService {
