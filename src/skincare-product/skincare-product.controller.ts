@@ -1,5 +1,6 @@
-import { Controller, Get, Param, Put, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common';
 import { SkincareProductService } from './skincare-product.service';
+import {  CreateProductWithDetailsDto } from './dtos/AddProduct.dto';
 
 @Controller('skincare-product')
 export class SkincareProductController {
@@ -30,5 +31,10 @@ export class SkincareProductController {
     searchProductByName(@Query() query : any){
         console.log(query)
          return this.SkincareProductService.searchProductByName(query.productname)
+    }
+
+    @Post("add-product")
+    addNewProduct(@Body() productInfo : CreateProductWithDetailsDto){
+        return this.SkincareProductService.addProductToWarehouse(productInfo)
     }
 }
