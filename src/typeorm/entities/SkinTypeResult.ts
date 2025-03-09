@@ -11,7 +11,7 @@ export class SkinTypeResult {
     @JoinColumn({ name: 'user_id' })
     customer: User;
 
-    @ManyToOne(() => SkinType, skinType => skinType.details)
+    @ManyToOne(() => SkinType, skinType => skinType.type)
     skinType: SkinType;
 
     @Column()
