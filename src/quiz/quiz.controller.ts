@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { QuizService } from './quiz.service';
 import { QuizAnswerDto } from './dto/QuizAnswer.dto';
 
@@ -11,9 +11,9 @@ export class QuizController {
         return this.quizService.getQuiz()
     }
 
-    @Post()
-    checkQuizResult(@Body() userAnswer: QuizAnswerDto[]){
+    @Post(':userId')
+    checkQuizResult(@Param('userId') userId: number ,@Body() userAnswer: QuizAnswerDto[]){
         // console.log(userAnswer)
-        return this.quizService.checkQuiz(userAnswer)
+        return this.quizService.checkQuiz(userId, userAnswer)
     }
 }

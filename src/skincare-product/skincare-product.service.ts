@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 import { Brand, Category, SkincareProduct, SkincareProductDetails } from 'src/typeorm/entities'
 import { Like, Repository, UpdateResult } from 'typeorm'
 import { CreateProductWithDetailsDto } from './dtos/AddProduct.dto'
+import { UpdateProductDto } from './dtos/update-product.dto'
 
 @Injectable()
 export class SkincareProductService {
@@ -101,5 +102,16 @@ export class SkincareProductService {
     });
   
     return this.SkincareProductDetailsRepository.save(productDetail);
+  }
+
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const product = await this.SkincareProductRepository.findOne({ where: { productId: id } });
+
+    if (!product) {
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
+
+    Object.assign(product, updateProductDto);
+    return this.SkincareProductRepository.save(product);
   }
 }
