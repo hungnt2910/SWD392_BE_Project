@@ -25,4 +25,33 @@ export class PaymentController {
 
     return this.paymentService.orderStatus(orderId)
   }
+
+  @Post('sbcreate')
+  createSbPayment() {
+    return this.paymentService.sbCreatePayment()
+  }
+
+  @Post('sbcallback')
+  handleSbCallback(@Body() body: any) {
+    const { data, mac } = body
+
+    return this.paymentService.validateCallback(data, mac)
+  }
+
+  @Post('sbstatus/:appTransId')
+  sbOrderStatus(@Param('appTransId') appTransId: string) {
+    console.log(appTransId)
+
+    return this.paymentService.queryTransaction(appTransId)
+  }
+
+  @Post('refund')
+  async refund() {
+    return this.paymentService.refundTransaction()
+  }
+
+  @Post('query-refund')
+  async queryRefund(@Body('m_refund_id') m_refund_id: string) {
+    return this.paymentService.queryRefund(m_refund_id)
+  }
 }

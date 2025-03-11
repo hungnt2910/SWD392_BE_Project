@@ -9,6 +9,6 @@ export class SkinType {
     @Column()
     type: string;
 
-    // @OneToMany(() => SkinTypeDetails, detail => detail.skinType)
-    // details: SkinTypeDetails[];
+    @OneToMany(() => SkinTypeDetails, detail => detail.skinType)
+    details: SkinTypeDetails[];
 }

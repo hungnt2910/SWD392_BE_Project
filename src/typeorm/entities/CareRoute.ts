@@ -1,30 +1,25 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn, CreateDateColumn } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { User } from "./User";
 import { CareRouteDetail } from "./CareRouteDetail";
 
 @Entity()
 export class CareRoute {
     @PrimaryGeneratedColumn()
-  id: number;
+    careRouteId: number;
 
-  @ManyToOne(() => User, (user) => user.skincareRoutines, { eager: true })
-  user: User;
+    @ManyToOne(() => User, user => user.id)
+    @JoinColumn({ name: 'user_id' })
+    customer: User;
 
-  @Column()
-  skinType: string; // Example: "Oily", "Dry", "Combination"
+    @Column()
+    staffId: number;
 
-  @Column({ type: 'text' })
-  concerns: string; // Example: "Acne, Wrinkles"
+    @Column()
+    routeName: string;
 
-  @Column({ type: 'json' })
-  morningRoutine: string[]; // Example: ["Cleanser", "Toner", "Moisturizer", "Sunscreen"]
+    @Column("text")
+    description: string;
 
-  @Column({ type: 'json' })
-  eveningRoutine: string[]; // Example: ["Makeup Remover", "Cleanser", "Serum", "Night Cream"]
-
-  @Column({ type: 'json' })
-  recommendedProducts: string[]; // Example: ["Hyaluronic Acid Serum", "SPF 50 Sunscreen"]
-
-  @CreateDateColumn()
-  createdAt: Date;
+    @OneToMany(() => CareRouteDetail, detail => detail.route)
+    details: CareRouteDetail[];
 }

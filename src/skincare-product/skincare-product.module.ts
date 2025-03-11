@@ -7,7 +7,9 @@ import { SkincareProductService } from './skincare-product.service';
 
 
 @Module({
+
   imports: [TypeOrmModule.forFeature([SkincareProduct, Brand, Category, SkincareProductDetails, OrderDetail])],
+
   controllers: [SkincareProductController],
   providers: [SkincareProductService]  
 })

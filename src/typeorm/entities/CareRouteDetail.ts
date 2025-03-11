@@ -7,7 +7,7 @@ export class CareRouteDetail {
     @PrimaryGeneratedColumn()
     careRouteDetailId: number;
 
-    @ManyToOne(() => CareRoute, route => route.id)
+    @ManyToOne(() => CareRoute, route => route.careRouteId)
     @JoinColumn({ name: 'care_route_id' })
     route: CareRoute;
 

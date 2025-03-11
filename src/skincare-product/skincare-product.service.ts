@@ -2,8 +2,6 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Brand, Category, OrderDetail, SkincareProduct, SkincareProductDetails } from 'src/typeorm/entities'
 import { Like, Repository, UpdateResult } from 'typeorm'
-import { CreateProductWithDetailsDto } from './dtos/AddProduct.dto'
-import { UpdateProductDto } from './dtos/update-product.dto'
 
 @Injectable()
 export class SkincareProductService {
@@ -141,5 +139,4 @@ export class SkincareProductService {
       })
     );
   }
-
 }

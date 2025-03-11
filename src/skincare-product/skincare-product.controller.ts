@@ -1,7 +1,5 @@
-import { Body, Controller, Get, Param, Post, Put, Query } from '@nestjs/common'
-import { SkincareProductService } from './skincare-product.service'
-import { CreateProductWithDetailsDto } from './dtos/AddProduct.dto'
-import { UpdateProductDto } from './dtos/update-product.dto'
+import { Controller, Get, Param, Put, Query } from '@nestjs/common';
+import { SkincareProductService } from './skincare-product.service';
 
 @Controller('skincare-product')
 export class SkincareProductController {
