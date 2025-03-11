@@ -26,3 +26,19 @@ export class updateVoucherDto {
   @MaxDate(new Date(), { message: 'Expiration date cannot be in the future' })
   expirationDate: Date
 }
+
+export class claimVoucherDto {
+  @IsNotEmpty()
+  voucherId: number
+
+  @IsNotEmpty()
+  userId: number
+}
+
+export class applyVoucherDto {
+  @IsNotEmpty()
+  userId: number
+
+  @IsNotEmpty()
+  voucherCode: string
+}
