@@ -25,4 +25,8 @@ export class SkincareRouteService {
   async getUserSkincareRoutine(userId: number) {
     return this.careRouteRepository.find({ where: { user: { id: userId } } });
   }
+
+  async getUser(userId: number) {
+    return this.careRouteRepository.find({ where: { user: { id: userId } } });
+  }
 }

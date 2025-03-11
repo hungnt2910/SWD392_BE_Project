@@ -15,4 +15,9 @@ export class SkincareRouteController {
   async getUserSkincareRoutine(@Param('userId', ParseIntPipe) userId: number) {
     return this.skincareRouteService.getUserSkincareRoutine(userId);
   }
+
+  @Get(':userId')
+  async getUser(@Param('userId', ParseIntPipe) userId: number) {
+    return this.skincareRouteService.getUserSkincareRoutine(userId);
+  }
 }
