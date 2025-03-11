@@ -4,7 +4,6 @@ import { Orders } from './Order'
 import { Reviews } from './Reviews'
 import { Blogs } from './Blogs'
 import { UserVoucher } from './UserVoucher'
-import { CareRoute } from './CareRoute'
 
 @Entity()
 export class User {
@@ -44,7 +43,4 @@ export class User {
 
   @OneToMany(() => UserVoucher, (uv) => uv.user)
   userVouchers: UserVoucher[]
-
-  @OneToMany(() => CareRoute, (routine) => routine.user)
-  skincareRoutines: CareRoute[];
 }
