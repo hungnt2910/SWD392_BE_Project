@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
-import { Brand, Category, SkincareProduct, SkincareProductDetails } from 'src/typeorm/entities'
+import { Brand, Category, OrderDetail, SkincareProduct, SkincareProductDetails } from 'src/typeorm/entities'
 import { Like, Repository, UpdateResult } from 'typeorm'
 import { CreateProductWithDetailsDto } from './dtos/AddProduct.dto'
 import { UpdateProductDto } from './dtos/update-product.dto'
@@ -16,6 +16,8 @@ export class SkincareProductService {
     private readonly BrandRepository: Repository<Brand>,
     @InjectRepository(SkincareProductDetails)
     private readonly SkincareProductDetailsRepository: Repository<SkincareProductDetails>,
+    @InjectRepository(OrderDetail)
+    private readonly OrderDetailsRepository: Repository<OrderDetail>,
   ) {}
 
   async getAllProduct() {
@@ -114,4 +116,30 @@ export class SkincareProductService {
     Object.assign(product, updateProductDto);
     return this.SkincareProductRepository.save(product);
   }
+
+  async getTopSellingProducts(limit: number = 10) {
+    const orderDetailRepository = this.OrderDetailsRepository;
+  
+    const topSellingProducts = await orderDetailRepository
+      .createQueryBuilder("orderDetail")
+      .select("orderDetail.productId", "productId")
+      .addSelect("SUM(orderDetail.quantity)", "totalSold")
+      .innerJoin("orderDetail.product", "product")
+      .where("product.isActive = :isActive", { isActive: true })
+      .groupBy("orderDetail.productId")
+      .orderBy("totalSold", "DESC")
+      .limit(limit)
+      .getRawMany();
+  
+    return Promise.all(
+      topSellingProducts.map(async (item) => {
+        const product = await this.SkincareProductRepository.findOne({
+          where: { productId: item.productId },
+          relations: ["category", "brand", "orderDetails", "reviews"],
+        });
+        return { ...product, totalSold: Number(item.totalSold) };
+      })
+    );
+  }
+
 }

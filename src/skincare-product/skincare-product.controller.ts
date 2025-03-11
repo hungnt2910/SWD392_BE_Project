@@ -43,4 +43,9 @@ export class SkincareProductController {
   updateProduct(@Param('id') productId: number, @Body() updateProductDto: UpdateProductDto) {
     return this.SkincareProductService.update(productId, updateProductDto)
   }
+
+  @Get('top-selling')
+  getTopSellingProduct() {
+    return this.SkincareProductService.getTopSellingProducts()
+  }
 }
