@@ -15,11 +15,15 @@ import { OrdersModule } from './orders/orders.module'
 import { AdminModule } from './admin/admin.module'
 import { BrandModule } from './brand/brand.module'
 import { PaymentModule } from './payment/payment.module'
+<<<<<<< HEAD
+import { VoucherModule } from './voucher/voucher.module';
+=======
 
 import { VoucherModule } from './voucher/voucher.module';
 
 import { SkincareRouteModule } from './skincare-route/skincare-route.module';
 
+>>>>>>> 29bda234d076ae1d32a540c8ef172f9966d772fa
 import * as entities from './typeorm/entities'
 
 @Module({
@@ -56,11 +60,15 @@ import * as entities from './typeorm/entities'
     AdminModule,
     BrandModule,
     PaymentModule,
+<<<<<<< HEAD
+    VoucherModule
+=======
 
     VoucherModule
 
     SkincareRouteModule
 
+>>>>>>> 29bda234d076ae1d32a540c8ef172f9966d772fa
   ],
   controllers: [AppController],
   providers: [AppService]

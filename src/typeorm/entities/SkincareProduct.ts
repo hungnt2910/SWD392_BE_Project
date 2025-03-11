@@ -35,9 +35,6 @@ export class SkincareProduct {
     @Column()
     stock: number;
 
-    @Column({ type: "text", nullable: true })
-    urlImage: string;
-
     @OneToMany(() => OrderDetail, orderDetail => orderDetail.product)
     orderDetails: OrderDetail[];
 
