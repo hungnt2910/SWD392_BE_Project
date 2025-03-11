@@ -9,6 +9,7 @@ describe('SkincareRouteController', () => {
       controllers: [SkincareRouteController],
     }).compile();
 
+    
     controller = module.get<SkincareRouteController>(SkincareRouteController);
   });
 

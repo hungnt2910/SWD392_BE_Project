@@ -13,6 +13,7 @@ export class CreateSkincareRoutineDto {
   @IsArray()
   morningRoutine: string[];
 
+
   @IsArray()
   eveningRoutine: string[];
 

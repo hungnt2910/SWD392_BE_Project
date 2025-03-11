@@ -11,6 +11,7 @@ describe('SkincareRouteService', () => {
 
     service = module.get<SkincareRouteService>(SkincareRouteService);
   });
+  
 
   it('should be defined', () => {
     expect(service).toBeDefined();

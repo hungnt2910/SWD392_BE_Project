@@ -21,6 +21,7 @@ export class SkincareRouteService {
 
     return this.careRouteRepository.save(skincareRoutine);
   }
+  
 
   async getUserSkincareRoutine(userId: number) {
     return this.careRouteRepository.find({ where: { user: { id: userId } } });

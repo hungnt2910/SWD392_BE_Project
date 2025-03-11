@@ -7,6 +7,6 @@ import { CareRoute, User } from 'src/typeorm/entities';
 @Module({
   imports: [TypeOrmModule.forFeature([CareRoute, User])],
   controllers: [SkincareRouteController],
-  providers: [SkincareRouteService]
+  providers: [SkincareRouteService],
 })
 export class SkincareRouteModule {}
